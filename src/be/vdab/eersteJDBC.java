@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class eersteJDBC {
 	
 	private static final String URL = "jdbc:mysql://localhost/tuincentrum";
-	private static final String USER = "root";
-	private static final String PASSWORD = "vdab";
+	private static final String USER = "cursist";
+	private static final String PASSWORD = "cursist";
 	
 	public static void main(String[] args) {
 		
