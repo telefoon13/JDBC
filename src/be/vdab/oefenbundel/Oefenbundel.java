@@ -10,7 +10,7 @@ public class Oefenbundel {
 	private static final String URL = "jdbc:mysql://localhost/bieren";
 	private static final String USER = "cursist";
 	private static final String PASSWORD = "cursist";
-	private static final String UPDATE_SQL_TAAK1 = "DELETE FROM bieren WHERE alcohol = NULL";
+	private static final String UPDATE_SQL_TAAK1 = "DELETE FROM bieren WHERE alcohol IS NULL";
 	
 	public static void main(String[] args) {
 		
