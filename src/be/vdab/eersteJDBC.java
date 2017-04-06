@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class eersteJDBC {
 	
-	private static final String URL = "jdbc:mysql://localhost/tuincentrum";
+	private static final String URL = "jdbc:mysql://localhost/tuincentrum?useSSL=false";
 	private static final String USER = "cursist";
 	private static final String PASSWORD = "cursist";
 	private static final String SQL = "SELECT id,naam FROM leveranciers ORDER BY id";
