@@ -1,12 +1,12 @@
 package be.vdab;
 
-import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Statement;
 import java.util.Scanner;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class eersteJDBC {
 	
@@ -15,38 +15,28 @@ public class eersteJDBC {
 	private static final String PASSWORD = "cursist";
 	private static final String SQL = "INSERT INTO soorten(naam) VALUES (?)";
 	
-	public static void main(String[] args) {
-		
-		List<String> namen = new ArrayList<>();
+	public static void main(String[] args) {		
 		
 		try( Scanner scanner = new Scanner(System.in)){
 			System.out.println("Geef soort namen, type STOP om de invoer te stoppen");
-			for (String naam; ! "stop".equalsIgnoreCase(naam = scanner.nextLine()) ; namen.add(naam));
-		}
+			String naam = scanner.nextLine();
 		
 		try (
 			Connection connection = DriverManager.getConnection(URL,USER,PASSWORD); 
-			PreparedStatement statement = connection.prepareStatement(SQL)
+			PreparedStatement statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)
 			) {
 
-			for(String naam : namen){
 				statement.setString(1, naam);
-				statement.addBatch();
-			}
-			
-			int[] aantalToegevoegdeRecordsPerInsert = statement.executeBatch();
-			int aantalSoortenToegevoegd = 0;
-			
-			for (int aantalRecordsToegevoegd : aantalToegevoegdeRecordsPerInsert){
-				aantalSoortenToegevoegd += aantalRecordsToegevoegd;
-			}
-			
-			System.out.println(aantalSoortenToegevoegd);
-			
-			} catch (SQLException ex) {
+				statement.executeUpdate();
 				
-			ex.printStackTrace();
-			
+				try(ResultSet resultSet = statement.getGeneratedKeys()){
+					resultSet.next();
+					System.out.println(resultSet.getLong(1));
+				}
+
+			} catch (SQLException ex) {
+				ex.printStackTrace();
 			}
 		}
 	}
+}
