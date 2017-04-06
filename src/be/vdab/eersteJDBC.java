@@ -31,8 +31,17 @@ public class eersteJDBC {
 
 			for(String naam : namen){
 				statement.setString(1, naam);
-				System.out.printf("%d %s%n", statement.executeUpdate(), naam);
+				statement.addBatch();
 			}
+			
+			int[] aantalToegevoegdeRecordsPerInsert = statement.executeBatch();
+			int aantalSoortenToegevoegd = 0;
+			
+			for (int aantalRecordsToegevoegd : aantalToegevoegdeRecordsPerInsert){
+				aantalSoortenToegevoegd += aantalRecordsToegevoegd;
+			}
+			
+			System.out.println(aantalSoortenToegevoegd);
 			
 			} catch (SQLException ex) {
 				
