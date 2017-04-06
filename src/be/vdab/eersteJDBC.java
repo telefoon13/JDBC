@@ -11,7 +11,7 @@ public class eersteJDBC {
 	private static final String URL = "jdbc:mysql://localhost/tuincentrum?useSSL=false";
 	private static final String USER = "cursist";
 	private static final String PASSWORD = "cursist";
-	private static final String SQL = "SELECT id,naam FROM leveranciers ORDER BY id";
+	private static final String SQL = "select id, naam, woonplaats from leveranciers where woonplaats = 'Wevelgem'";
 	
 	public static void main(String[] args) {
 		
@@ -21,9 +21,13 @@ public class eersteJDBC {
 				ResultSet resultSet = statement.executeQuery(SQL)
 				) {
 
+			int aantalLeveranciers = 0;
 			while (resultSet.next()){
-			System.out.printf("%4d %s%n", resultSet.getInt(1),resultSet.getString(2));
+				++aantalLeveranciers;
+				System.out.printf("%4d %s%n", resultSet.getInt("id"), resultSet.getString("naam"));
 			}
+			
+			System.out.printf("%d leverancier(s) van Wevelgem", aantalLeveranciers);
 			
 			} catch (SQLException ex) {
 				
