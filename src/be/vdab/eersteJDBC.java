@@ -21,8 +21,9 @@ public class eersteJDBC {
 		) {	
 			
 			connection.setAutoCommit(false);
-			statement.executeUpdate(SQL1);
-			statement.executeUpdate(SQL2);
+			statement.addBatch(SQL1);
+			statement.addBatch(SQL2);
+			statement.executeBatch();
 			connection.commit();
 
 		} catch (SQLException ex) {
