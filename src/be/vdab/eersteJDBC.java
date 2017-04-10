@@ -16,7 +16,7 @@ public class eersteJDBC {
 		try (Connection connection = DriverManager.getConnection(URL,USER,PASSWORD)) {	
 			
 			DatabaseMetaData metaData = connection.getMetaData();
-			System.out.printf("%s %d.%d%n", metaData.getDriverName(), metaData.getDriverMajorVersion(), metaData.getDriverMinorVersion());
+			System.out.printf("%s %d.%d%n", metaData.getDatabaseProductName(), metaData.getDriverMajorVersion(), metaData.getDriverMinorVersion());
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
