@@ -11,7 +11,7 @@ public class eersteJDBC {
 	private static final String URL = "jdbc:mysql://localhost/tuincentrum?useSSL=false";
 	private static final String USER = "cursist";
 	private static final String PASSWORD = "cursist";
-	private static final String SQL = "SELECT indienst, voornaam, familienaam FROM werknemers WHERE indienst >= {d '2001-1-1'} ORDER BY indienst";
+	private static final String SQL = "SELECT geboorte, voornaam, familienaam FROM werknemers WHERE {fn month(geboorte)} = {fn month({fn curdate()})} ORDER BY {fn dayofmonth(geboorte)}";
 	
 	public static void main(String[] args) {		
 		
@@ -22,7 +22,7 @@ public class eersteJDBC {
 			) {	
 			
 			while (resultSet.next()){
-				System.out.printf("%s %s %s%n", resultSet.getDate("indienst"), resultSet.getString("voornaam"), resultSet.getString("familienaam"));
+				System.out.printf("%s %s %s%n", resultSet.getDate("geboorte"), resultSet.getString("voornaam"), resultSet.getString("familienaam"));
 			}
 
 
